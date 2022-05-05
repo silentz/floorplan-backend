@@ -3,7 +3,14 @@ SHELL := /bin/bash
 
 
 protos:
-	docker run -v ${PWD}/protos/:/defs namely/protoc-all -f service.proto -l python
-	mv ./protos/gen/pb_python/service_pb2.py src/
-	mv ./protos/gen/pb_python/service_pb2_grpc.py src/
-	rm -rf ./protos/gen/
+	python -m grpc_tools.protoc \
+		-I ./protos \
+		--python_out=src/ \
+		--grpc_python_out=src/ \
+		./protos/*.proto
+	protol \
+		--dont-create-package \
+		--in-place \
+		--python-out src \
+		protoc --proto-path=./protos \
+		./protos/service.proto

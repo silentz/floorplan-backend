@@ -1,5 +1,5 @@
 syntax = "proto3";
-package service;
+package floorplan;
 
 
 message ProcessRequest {
@@ -12,6 +12,6 @@ message ProcessResponse {
 }
 
 
-service FloorplanService {
+service Service {
     rpc Process (ProcessRequest) returns (ProcessResponse);
 }
