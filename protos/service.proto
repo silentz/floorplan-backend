@@ -1,0 +1,17 @@
+syntax = "proto3";
+package service;
+
+
+message ProcessRequest {
+    bytes image_data = 1;
+}
+
+
+message ProcessResponse {
+    bytes model = 1;
+}
+
+
+service FloorplanService {
+    rpc Process (ProcessRequest) returns (ProcessResponse);
+}
