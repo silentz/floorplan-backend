@@ -19,8 +19,9 @@ class Service:
         self._client = tclient.InferenceServerClient(client_url)
 
     def _triton_request(self, input: np.ndarray) -> np.ndarray:
-        inp_shape = [6, 3,               self._image_size, self._image_size]
-        out_shape = [6, self._n_classes, self._image_size, self._image_size]
+        batch_size = input.shape[0]
+        inp_shape = [batch_size, 3,               self._image_size, self._image_size]
+        out_shape = [batch_size, self._n_classes, self._image_size, self._image_size]
 
         inputs = [
                 tclient.InferInput('input__0', inp_shape, "FP32"),
@@ -35,7 +36,7 @@ class Service:
         model_out = model_out.as_numpy('output__0')
         return model_out
 
-    def _infer_model(self, image: np.ndarray) -> np.ndarray:
+    def _infer_model_multiple(self, image: np.ndarray) -> np.ndarray:
         inputs = [
                 image,
                 np.rot90(image, k=1, axes=(0, 1)),
@@ -50,7 +51,6 @@ class Service:
         batch = batch.astype(np.float32)
 
         model_out = self._triton_request(batch)
-        print(model_out.shape)
         model_out = np.transpose(model_out, (0, 2, 3, 1))
 
         masks = [
@@ -67,6 +67,15 @@ class Service:
 
         return mask
 
+    def _infer_model_once(self, image: np.ndarray) -> np.ndarray:
+        batch = np.expand_dims(image, axis=0)
+        batch = np.transpose(batch, (0, 3, 1, 2))
+        batch = batch.astype(np.float32)
+        model_out = self._triton_request(batch)
+        model_out = model_out[0]
+        model_out = np.transpose(model_out, (1, 2, 0))
+        mask = np.argmax(model_out, axis=2)
+        return mask
 
     def infer(self, image: np.ndarray) -> np.ndarray:
         r_image = utils.resize_image(
@@ -80,7 +89,6 @@ class Service:
                 pad_value=self._pad_value,
             )
 
-        p_mask = self._infer_model(p_image)
-
+        p_mask = self._infer_model_once(p_image)
         print(p_mask.shape)
 

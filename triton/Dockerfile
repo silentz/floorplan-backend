@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/tritonserver:22.04-py3
+FROM nvcr.io/nvidia/tritonserver:21.07-py3
 
 COPY repo/ /repo
 
