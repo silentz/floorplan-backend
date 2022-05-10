@@ -49,6 +49,6 @@ class Server(pb2_grpc.ServiceServicer):
             context.set_details(f'image width is expected to be {self._min_image_width} or more')
             return pb2.ProcessResponse()
 
-        mask = self._model_srv.infer(image)
+        image, mask = self._model_srv.infer(image)
 
         return pb2.ProcessResponse()
