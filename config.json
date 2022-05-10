@@ -1,7 +1,7 @@
 {
     "app": {
         "host": "0.0.0.0",
-        "port": 8000,
+        "port": 9000,
         "workers": 16
     },
     "input": {
@@ -10,6 +10,9 @@
     },
     "triton": {
         "host": "127.0.0.1",
-        "port": 8001
+        "port": 8001,
+        "model_name": "floorplan",
+        "image_size": 512,
+        "pad_value": [255, 255, 255]
     }
 }
