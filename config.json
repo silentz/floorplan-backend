@@ -10,9 +10,10 @@
     },
     "triton": {
         "host": "127.0.0.1",
-        "port": 8001,
+        "port": 8000,
         "model_name": "floorplan",
         "image_size": 512,
-        "pad_value": [255, 255, 255]
+        "pad_value": [255, 255, 255],
+        "n_classes": 11
     }
 }
