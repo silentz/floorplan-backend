@@ -3,5 +3,13 @@
         "host": "0.0.0.0",
         "port": 8000,
         "workers": 16
+    },
+    "input": {
+        "min_image_height": 32,
+        "min_image_width": 32
+    },
+    "triton": {
+        "host": "127.0.0.1",
+        "port": 8001
     }
 }
