@@ -1,6 +1,6 @@
 import numpy as np
 import tritonclient.http as tclient
-from typing import Any, Dict
+from typing import Any, Dict, Tuple
 
 from . import utils
 
@@ -77,7 +77,7 @@ class Service:
         mask = np.argmax(model_out, axis=2)
         return mask
 
-    def infer(self, image: np.ndarray) -> np.ndarray:
+    def infer(self, image: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         r_image = utils.resize_image(
                 image=image,
                 max_size=self._image_size,
@@ -90,5 +90,11 @@ class Service:
             )
 
         p_mask = self._infer_model_once(p_image)
-        print(p_mask.shape)
 
+        r_mask = utils.unpad_image(
+                image=p_mask,
+                origin_height=r_image.shape[0],
+                origin_width=r_image.shape[1],
+            )
+
+        return r_image, r_mask

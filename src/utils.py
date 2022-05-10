@@ -51,3 +51,10 @@ def pad_image(image: np.ndarray,
             value=pad_value)
 
     return new_image
+
+
+def unpad_image(image: np.ndarray,
+                origin_height: int,
+                origin_width: int) -> np.ndarray:
+    tx = image[:origin_height, :origin_width]
+    return np.copy(tx)
