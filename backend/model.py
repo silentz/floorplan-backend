@@ -64,6 +64,7 @@ class Service:
 
         mask = sum(masks)
         mask = np.argmax(mask, axis=2)
+        mask = mask.astype(np.uint8)
 
         return mask
 
