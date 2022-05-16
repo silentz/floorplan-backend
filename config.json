@@ -15,5 +15,10 @@
         "image_size": 512,
         "pad_value": [255, 255, 255],
         "n_classes": 11
+    },
+    "render": {
+        "wall_class": 9,
+        "wall_height": 50,
+        "colorize": true
     }
 }

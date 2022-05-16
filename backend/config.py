@@ -18,4 +18,8 @@ parser.add_argument('--triton.image_size', type=int, required=True, help='Triton
 parser.add_argument('--triton.n_classes',  type=int, required=True, help='Triton inference server model pad value')
 parser.add_argument('--triton.pad_value',  type=tuple, required=True, help='Triton inference server model pad value')
 
+parser.add_argument('--render.wall_class',  type=int, required=True, help='Wall class for 3d renderer')
+parser.add_argument('--render.wall_height', type=int, required=True, help='Wall height for 3d renderer')
+parser.add_argument('--render.colorize',    type=int, required=True, help='Colorize model or not')
+
 args = parser.parse_args()

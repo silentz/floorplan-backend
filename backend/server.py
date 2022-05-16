@@ -3,6 +3,7 @@ import numpy as np
 from typing import Any, Dict
 
 from . import model
+from . import render
 from . import utils
 from . import service_pb2 as pb2
 from . import service_pb2_grpc as pb2_grpc
@@ -12,9 +13,11 @@ class Server(pb2_grpc.ServiceServicer):
 
 
     def __init__(self, config: Dict[str, Any],
-                       model_srv: model.Service):
+                       model_srv: model.Service,
+                       render_srv: render.Service):
         super().__init__()
         self._model_srv = model_srv
+        self._render_srv = render_srv
         self._min_image_width  = config.get('min_image_width', 32)
         self._min_image_height = config.get('min_image_height', 32)
 

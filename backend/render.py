@@ -2,17 +2,15 @@ import io
 import cv2
 import gltflib
 import numpy as np
-from typing import Any, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 class Service:
 
-    def __init__(self, wall_height: int = 50,
-                       wall_class: int = 9,
-                       colorize: bool = True):
-        self._wc = wall_class
-        self._wh = wall_height
-        self._color = colorize
+    def __init__(self, config: Dict[str, Any]):
+        self._wc = config.get('wall_class', 9)
+        self._wh = config.get('wall_height', 50)
+        self._color = config.get('colorize', False)
 
     def _render_single_wall(self, x: int, y: int, z: int, t: int) \
             -> Tuple[List[Any], List[Any], List[Any]]:
