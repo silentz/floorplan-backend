@@ -93,6 +93,34 @@ class Service:
 
         return image
 
+    def _refine_mesh(self, points: np.ndarray,
+                           triags: np.ndarray,
+                           texcrd: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        points = np.copy(points)
+        triags = np.copy(triags)
+        texcrd = np.copy(texcrd)
+
+        hash = dict()
+        counter = 0
+        new_points = []
+
+        change = np.zeros(len(points), dtype=np.uint32)
+
+        for idx, point in enumerate(points):
+            point = tuple(point.tolist())
+            if point not in hash:
+                new_points.append(points[idx])
+                hash[point] = counter
+                counter += 1
+            change[idx] = hash[point]
+
+        points = np.array(new_points)
+
+        for tr_idx in range(len(triags)):
+            triags[tr_idx] = change[triags[tr_idx]]
+
+        return points, triags, texcrd
+
     def render(self, image: np.ndarray,
                      mask:  np.ndarray) -> bytes:
 
@@ -108,6 +136,7 @@ class Service:
         bbtx = btx.tobytes()
 
         wpt, wtr, wtx = self._render_walls(mask)
+        wpt, wtr, wtx = self._refine_mesh(wpt, wtr, wtx)
         bwpt = wpt.tobytes()
         bwtr = wtr.tobytes()
         bwtx = wtx.tobytes()
