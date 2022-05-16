@@ -53,5 +53,6 @@ class Server(pb2_grpc.ServiceServicer):
             return pb2.ProcessResponse()
 
         image, mask = self._model_srv.infer(image)
+        model_bytes = self._render_srv.render(image, mask)
 
-        return pb2.ProcessResponse()
+        return pb2.ProcessResponse(model=model_bytes)
