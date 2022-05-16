@@ -26,11 +26,11 @@ run-triton:
 	docker run -it -p8000:8000 -p8001:8001 --gpus=1 ${TRITON_IMAGE_NAME}
 
 push-triton:
-	docker push ${TRITON_IMAGE_NAME}
+	docker push ${TRITON_IMAGE_NAME}:latest
 
 backend:
 	docker build . -t ${BACKEND_IMAGE_NAME}
 
 push-backend:
-	docker push ${BACKEND_IMAGE_NAME}
+	docker push ${BACKEND_IMAGE_NAME}:latest
 
