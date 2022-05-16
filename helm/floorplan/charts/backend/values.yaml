@@ -1,0 +1,20 @@
+
+replicaCount: 1
+
+backend:
+  image: mepershin/floorplan-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+  port: 9000
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 1000m
+    memory: 512Mi
