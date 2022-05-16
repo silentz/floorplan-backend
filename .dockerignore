@@ -1,0 +1,9 @@
+docs/
+venv/
+triton/
+
+*.pyc
+__pycache__/
+test.py
+.DS_Store
+.git
