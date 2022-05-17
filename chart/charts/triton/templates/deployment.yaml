@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.triton.image }}:{{ .Values.triton.tag }}"
+          imagePullPolicy: {{ .Values.triton.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.triton.httpPort }}
