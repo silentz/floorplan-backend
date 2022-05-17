@@ -1,7 +1,7 @@
 
 ## floorplan-backend
 
-### Installation
+### Install
 
 Run from project root:
 
