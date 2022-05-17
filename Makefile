@@ -1,10 +1,11 @@
 SHELL := /bin/bash
-.PHONY: protos triton run-triton push-triton backend push-backend envoy push-envoy
+.PHONY: protos triton run-triton push-triton backend push-backend envoy push-envoy frontend push-frontend
 
 
-TRITON_IMAGE_NAME  := mepershin/floorplan-triton
-BACKEND_IMAGE_NAME := mepershin/floorplan-backend
-ENVOY_IMAGE_NAME   := mepershin/floorplan-envoy
+TRITON_IMAGE_NAME   := mepershin/floorplan-triton
+BACKEND_IMAGE_NAME  := mepershin/floorplan-backend
+ENVOY_IMAGE_NAME    := mepershin/floorplan-envoy
+FRONTEND_IMAGE_NAME := mepershin/floorplan-frontend
 
 
 protos:
@@ -44,3 +45,9 @@ envoy:
 
 push-envoy:
 	docker push ${ENVOY_IMAGE_NAME}:latest
+
+frontend:
+	docker build frontend/ -t ${FRONTEND_IMAGE_NAME}
+
+push-frontend:
+	docker push ${FRONTEND_IMAGE_NAME}:latest
