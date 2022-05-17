@@ -10,8 +10,8 @@ ENVOY_IMAGE_NAME   := mepershin/floorplan-envoy
 protos:
 	python -m grpc_tools.protoc \
 		-I ./protos \
-		--python_out=backend/ \
-		--grpc_python_out=backend/ \
+		--python_out=backend/backend/ \
+		--grpc_python_out=backend/backend/ \
 		--include_imports \
 		--include_source_info \
 		--descriptor_set_out=envoy/inference.pb \
@@ -19,7 +19,7 @@ protos:
 	protol \
 		--dont-create-package \
 		--in-place \
-		--python-out backend \
+		--python-out backend/backend/ \
 		protoc \
 			--proto-path=./protos \
 			./protos/service.proto
@@ -34,7 +34,7 @@ push-triton:
 	docker push ${TRITON_IMAGE_NAME}:latest
 
 backend:
-	docker build . -t ${BACKEND_IMAGE_NAME}
+	docker build backend/ -t ${BACKEND_IMAGE_NAME}
 
 push-backend:
 	docker push ${BACKEND_IMAGE_NAME}:latest
