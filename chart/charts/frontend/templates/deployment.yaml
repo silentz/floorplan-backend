@@ -21,11 +21,16 @@ spec:
           command:
             - gunicorn
           args:
-            - --workers
-            - {{ .Values.frontend.workers }}
-            - --bind
+            - "--workers"
+            - "{{ .Values.frontend.workers }}"
+            - "--bind"
             - "0.0.0.0:{{ .Values.frontend.port }}"
-            - app:app
+            - "app:app"
+          env:
+            - name: APP_BACKEND_HOST
+              value: "{{ .Values.global.backend.name }}"
+            - name: APP_BACKEND_PORT
+              value: "{{ .Values.global.backend.httpPort }}"
           ports:
             - name: http
               containerPort: {{ .Values.frontend.port }}

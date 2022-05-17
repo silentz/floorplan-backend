@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "frontend.labels" . | nindent 4 }}
 spec:
+  type: NodePort
   ports:
     - port: {{ .Values.global.frontend.httpPort }}
       targetPort: {{ .Values.frontend.port }}
