@@ -15,8 +15,8 @@ data:
         "min_image_width": 32
       },
       "triton": {
-        "host": "{{ .Values.global.triton.tritonHttp.name }}",
-        "port": {{ .Values.global.triton.tritonHttp.port }},
+        "host": "{{ .Values.global.triton.name }}",
+        "port": {{ .Values.global.triton.httpPort }},
         "model_name": "floorplan",
         "image_size": 512,
         "pad_value": [255, 255, 255],

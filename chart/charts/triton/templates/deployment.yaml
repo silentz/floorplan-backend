@@ -18,12 +18,9 @@ spec:
           image: "{{ .Values.triton.image }}:{{ .Values.triton.tag }}"
           imagePullPolicy: {{ .Values.triton.pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.triton.httpPort }}
+            - containerPort: {{ .Values.triton.httpPort }}
               protocol: TCP
-            - name: grpc
-              containerPort: {{ .Values.triton.grpcPort }}
+            - containerPort: {{ .Values.triton.grpcPort }}
               protocol: TCP
-            - name: metrics
-              containerPort: {{ .Values.triton.metricsPort }}
+            - containerPort: {{ .Values.triton.metricsPort }}
               protocol: TCP

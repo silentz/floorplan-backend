@@ -1,13 +1,8 @@
 
 global:
   triton:
-    tritonHttp:
-      name: triton-http-svc
-      port: 8000
-    tritonGrpc:
-      name: triton-grpc-svc
-      port: 8001
-    tritonMetrics:
-      name: triton-metrics-svc
-      port: 8002
+      name: triton-svc
+      httpPort: 8000
+      grpcPort: 8001
+      metricsPort: 8002
 
