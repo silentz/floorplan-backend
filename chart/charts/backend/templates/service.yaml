@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.backend.name }}
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: {{ .Values.global.backend.grpcPort }}
+      targetPort: {{ .Values.envoy.grpcPort }}
+      protocol: TCP
+      name: "grpc-port"
+    - port: {{ .Values.global.backend.httpPort }}
+      targetPort: {{ .Values.envoy.restPort }}
+      protocol: TCP
+      name: "http-port"
+  selector:
+    {{- include "backend.selectorLabels" . | nindent 4 }}

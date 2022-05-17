@@ -1,8 +1,13 @@
 
 global:
   triton:
-      name: triton-svc
-      httpPort: 8000
-      grpcPort: 8001
-      metricsPort: 8002
+    name: triton-svc
+    httpPort: 8000
+    grpcPort: 8001
+    metricsPort: 8002
+
+  backend:
+    name: backend-svc
+    grpcPort: 6000
+    httpPort: 7000
 
