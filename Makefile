@@ -9,13 +9,14 @@ BACKEND_IMAGE_NAME := mepershin/floorplan-backend
 protos:
 	python -m grpc_tools.protoc \
 		-I ./protos \
-		--python_out=src/ \
-		--grpc_python_out=src/ \
+		--python_out=backend/ \
+		--grpc_python_out=backend/ \
+		--descriptor_set_out=envoy/inference.pb \
 		./protos/*.proto
 	protol \
 		--dont-create-package \
 		--in-place \
-		--python-out src \
+		--python-out backend \
 		protoc --proto-path=./protos \
 		./protos/service.proto
 

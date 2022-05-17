@@ -1,6 +1,8 @@
 syntax = "proto3";
 package floorplan;
 
+import "google/api/annotations.proto";
+
 
 message ProcessRequest {
     bytes image_data = 1;
@@ -13,5 +15,9 @@ message ProcessResponse {
 
 
 service Service {
-    rpc Process (ProcessRequest) returns (ProcessResponse);
+    rpc Process (ProcessRequest) returns (ProcessResponse) {
+        option (google.api.http) = {
+            post: "/process"
+        };
+    }
 }
