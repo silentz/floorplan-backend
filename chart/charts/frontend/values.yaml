@@ -1,0 +1,17 @@
+
+replicaCount: 1
+
+frontend:
+  image: mepershin/floorplan-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+  port: 8080
+  workers: 4
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 1000m
+    memory: 512Mi

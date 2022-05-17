@@ -11,3 +11,8 @@ global:
     grpcPort: 6000
     httpPort: 7000
 
+  frontend:
+    name: frontend-svc
+    httpPort: 8080
+    nodePort: 31234
+
