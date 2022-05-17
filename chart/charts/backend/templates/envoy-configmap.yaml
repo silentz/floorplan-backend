@@ -8,6 +8,7 @@ data:
       listeners:
 
       - name: inference_http
+        per_connection_buffer_limit_bytes: 104857600
         address:
           socket_address:
             address: 0.0.0.0
