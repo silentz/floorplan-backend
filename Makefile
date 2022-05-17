@@ -12,14 +12,17 @@ protos:
 		-I ./protos \
 		--python_out=backend/ \
 		--grpc_python_out=backend/ \
+		--include_imports \
+		--include_source_info \
 		--descriptor_set_out=envoy/inference.pb \
 		./protos/*.proto
 	protol \
 		--dont-create-package \
 		--in-place \
 		--python-out backend \
-		protoc --proto-path=./protos \
-		./protos/service.proto
+		protoc \
+			--proto-path=./protos \
+			./protos/service.proto
 
 triton:
 	docker build triton/ -t ${TRITON_IMAGE_NAME}

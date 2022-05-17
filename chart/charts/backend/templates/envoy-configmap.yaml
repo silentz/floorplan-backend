@@ -17,7 +17,7 @@ data:
           - name: envoy.filters.network.http_connection_manager
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-              stat_prefix: grpc_json
+              stat_prefix: http
               codec_type: AUTO
               route_config:
                 name: local_route
@@ -31,7 +31,6 @@ data:
                       cluster: backend
                       timeout: 60s
               http_filters:
-              - name: envoy.filters.http.router
               - name: envoy.filters.http.grpc_json_transcoder
                 typed_config:
                   "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
@@ -42,6 +41,7 @@ data:
                     always_print_primitive_fields: true
                     always_print_enums_as_ints: false
                     preserve_proto_field_names: false
+              - name: envoy.filters.http.router
 
       - name: inference_grpc
         address:
@@ -53,17 +53,8 @@ data:
           - name: envoy.http_connection_manager
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-              stat_prefix: ingress_http
+              stat_prefix: grpc
               codec_type: HTTP2
-              use_remote_address: true
-              stream_idle_timeout: {{ .Values.envoy.stream_idle_timeout }}
-              access_log:
-                - name: envoy.access_loggers.file
-                  typed_config:
-                    "@type": type.googleapis.com/envoy.config.accesslog.v2.FileAccessLog
-                    path: /dev/stdout
-                    json_format:
-                      {{- tpl (.Files.Get "resources/envoy_access_log_config.json") . | indent 16 }}
               http_filters:
                 - name: envoy.filters.http.router
               route_config:
