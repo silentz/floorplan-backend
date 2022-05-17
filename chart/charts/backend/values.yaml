@@ -8,6 +8,13 @@ backend:
   port: 9000
   workers: 16
 
+envoy:
+  image: mepershin/floorplan-envoy
+  tag: latest
+  pullPolicy: IfNotPresent
+  grpcPort: 6000
+  httpPort: 7000
+
 resources:
   limits:
     cpu: 1000m

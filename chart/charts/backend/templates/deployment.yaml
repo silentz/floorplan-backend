@@ -15,7 +15,7 @@ spec:
         {{- include "backend.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ template "backend.name" . }}
           image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
           imagePullPolicy: {{ .Values.backend.pullPolicy }}
           command:
@@ -34,7 +34,26 @@ spec:
           volumeMounts:
             - name: backend-config-data
               mountPath: /app/config
+        - name: {{ template "backend.name" . }}-envoy
+          image: "{{ .Values.envoy.image }}:{{ .Values.envoy.tag }}"
+          imagePullPolicy: {{ .Values.envoy.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.envoy.httpPort }}
+              protocol: TCP
+            - containerPort: {{ .Values.envoy.grpcPort }}
+              protocol: TCP
+          command:
+            - /usr/local/bin/envoy
+          args:
+            - -c
+            - /app/config/config.yaml
+          volumeMounts:
+            - name: envoy-config-data
+              mountPath: /app/config/
       volumes:
         - name: backend-config-data
           configMap:
             name: {{ template "backend.name" . }}-config
+        - name: envoy-config-data
+          configMap:
+            name: {{ template "backend.name" . }}-envoy-config
