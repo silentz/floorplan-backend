@@ -6,10 +6,7 @@ backend:
   tag: latest
   pullPolicy: IfNotPresent
   port: 9000
-
-service:
-  type: ClusterIP
-  port: 80
+  workers: 16
 
 resources:
   limits:

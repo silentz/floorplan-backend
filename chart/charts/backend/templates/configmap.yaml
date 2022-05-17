@@ -1,13 +1,30 @@
----
 apiVersion: v1
-data:
-  config.json: |
-{{ tpl (.Files.Get "resources/config.json") . | indent 4  }}
-kind: ConfigMap
 metadata:
   name: {{ template "backend.name" . }}-config
-  labels:
-    app: {{ template "backend.name" . }}
-    chart: {{ template "backend.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+kind: ConfigMap
+data:
+  config.json: |+
+    {
+      "app": {
+        "host": "0.0.0.0",
+        "port": {{ .Values.backend.port }},
+        "workers": {{ .Values.backend.workers }}
+      },
+      "input": {
+        "min_image_height": 32,
+        "min_image_width": 32
+      },
+      "triton": {
+        "host": "{{ .Values.global.triton.tritonHttp.name }}",
+        "port": {{ .Values.global.triton.tritonHttp.port }},
+        "model_name": "floorplan",
+        "image_size": 512,
+        "pad_value": [255, 255, 255],
+        "n_classes": 11
+      },
+      "render": {
+        "wall_class": 9,
+        "wall_height": 50,
+        "colorize": true
+      }
+    }
