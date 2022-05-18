@@ -22,4 +22,8 @@ parser.add_argument('--render.wall_class',  type=int, required=True, help='Wall 
 parser.add_argument('--render.wall_height', type=int, required=True, help='Wall height for 3d renderer')
 parser.add_argument('--render.colorize',    type=int, required=True, help='Colorize model or not')
 
+parser.add_argument('--postprocess.wall_class', type=int, required=True, help='Postprocess wall class')
+parser.add_argument('--postprocess.door_class', type=int, required=True, help='Postprocess door class')
+parser.add_argument('--postprocess.back_class', type=int, required=True, help='Postprocess background class')
+
 args = parser.parse_args()

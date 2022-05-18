@@ -20,5 +20,10 @@
         "wall_class": 9,
         "wall_height": 50,
         "colorize": true
+    },
+    "postprocess": {
+        "back_class": 0,
+        "wall_class": 9,
+        "door_class": 10
     }
 }
